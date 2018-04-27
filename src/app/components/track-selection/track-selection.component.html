@@ -1,0 +1,10 @@
+<ul class="tracks">
+  <li *ngFor="let track of tracks | async" class="track" [routerLink]="['/track', track.id]">
+    <span class="date">{{ track.date | date : 'MMMM d' }}</span>
+    <h2>{{ track.name }}</h2>
+    <h3>{{ track.track }}</h3>
+    <div class="track-line" [innerHtml]="svgs[track.id]"></div>
+
+    <span class="upcoming-indicator" *ngIf="track.id === (upcomingTrack | async)?.id">In {{ track.date | amDifference : today : 'days' }} days</span>
+  </li>
+</ul>

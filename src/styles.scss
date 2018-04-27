@@ -1,1 +1,65 @@
 /* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/theming';
+@import './styles/fonts.scss';
+@import './styles/colors.scss';
+@import './styles/theme.scss';
+
+body, html {
+  padding: 0;
+  margin: 0;
+  background-color: mat-color($racing-app-background, 100);
+  font-family: 'Lato', sans-serif;
+}
+
+.hero {
+  height: auto;
+  min-height: 100px;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  background-color: mat-color($racing-app-primary);
+  background-image: url('./assets/img/tracks/default.jpg');
+  background-size: cover;
+  background-position: center center;
+  color: #FFF;
+
+  .center {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 280px;
+  }
+
+  h1 {
+    flex-grow: 1;
+    font-weight: normal;
+    font-size: 62px;
+  }
+}
+
+h1 {
+  font-family: Formula1;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 50px;
+  margin-top: -57px;
+}
+
+.content .center {
+  background-color: #fff;
+
+  h2, h3, h4, h5, h6, p {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+}
+
+.center {
+  width: 100%;
+  max-width: 960px;
+}

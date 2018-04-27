@@ -1,0 +1,25 @@
+table {
+  width: 100%;
+}
+
+.mat-column-name {
+  flex: 3;
+}
+
+.mat-column-position {
+  flex: 0 0 20px;
+}
+
+.mat-column-teamcolor {
+  flex: 0 0 auto;
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+
+  div {
+    border-radius: 10px;
+    width: 10px;
+    height: 10px;
+    margin: 0 10px 0 5px;
+  }
+}

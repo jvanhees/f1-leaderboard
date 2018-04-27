@@ -1,0 +1,32 @@
+@font-face {
+    font-family: Formula1;
+    src: url('./assets/fonts/Formula1-Regular_web.eot');
+    src: local('☺'),
+      url('./assets/fonts/Formula1-Regular_web.woff2') format('woff2'),
+      url('./assets/fonts/Formula1-Regular_web.woff') format('woff2'),
+      url('./assets/fonts/Formula1-Regular_web.ttf') format('truetype'),
+      url('./assets/fonts/Formula1-Regular_web.svg') format('svg');
+    font-weight: regular;
+}
+
+@font-face {
+    font-family: Formula1;
+    src: url('./assets/fonts/Formula1-Bold_web.eot');
+    src: local('☺'),
+      url('./assets/fonts/Formula1-Bold_web.woff2') format('woff2'),
+      url('./assets/fonts/Formula1-Bold_web.woff') format('woff2'),
+      url('./assets/fonts/Formula1-Bold_web.ttf') format('truetype'),
+      url('./assets/fonts/Formula1-Bold_web.svg') format('svg');
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: Formula1-Wide;
+    src: url('./assets/fonts/Formula1-Wide_web.eot');
+    src: local('☺'),
+      url('./assets/fonts/Formula1-Wide_web.woff2') format('woff2'),
+      url('./assets/fonts/Formula1-Wide_web.woff') format('woff2'),
+      url('./assets/fonts/Formula1-Wide_web.ttf') format('truetype'),
+      url('./assets/fonts/Formula1-Wide_web.svg') format('svg');
+    font-weight: bold;
+}

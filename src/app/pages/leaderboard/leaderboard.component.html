@@ -1,0 +1,27 @@
+<div class="hero">
+  <div class="center" *ngIf="(track | async) as track; let track; else loadingTrack">
+    <h1>{{ track.name }}</h1>
+    <img class="track-img" src="{{ track.svg }}" />
+  </div>
+
+  <ng-template #loadingTrack>
+    <div class="center">
+      <h1>Loading track...</h1>
+    </div>
+  </ng-template>
+</div>
+
+<div class="content">
+  <div class="leaderboard center wrapper mat-elevation-z8">
+
+    <div class="leaderboard-container">
+      <timings [data]="claimedTimings"></timings>
+    </div>
+
+    <h2>Unclaimed times</h2>
+    <div class="leaderboard-container">
+      <timings [data]="unclaimedTimings" [columns]="unclaimedColumns"></timings>
+    </div>
+
+  </div>
+</div>

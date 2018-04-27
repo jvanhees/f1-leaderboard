@@ -1,0 +1,39 @@
+<div class="hero">
+  <div class="center" *ngIf="(player | async) as player; let player; else loadingPlayer">
+    <h1>{{ player.name }}</h1>
+  </div>
+
+  <ng-template #loadingPlayer>
+    <div class="center">
+      <h1>Loading player...</h1>
+    </div>
+  </ng-template>
+</div>
+
+<div class="content" *ngIf="(player | async) as player; let player; else loadingPlayerSettings">
+  <div class="user-settings center wrapper mat-elevation-z8">
+    <p>{{ player.name }}</p>
+    <p>{{ player.email }}</p>
+    <p>{{ player.color }}</p>
+    <p><img [src]="player.photo" /></p>
+  </div>
+
+  <ng-template #loadingPlayer>
+    <div class="user-settings center wrapper mat-elevation-z8">
+      <h1>Loading player settings...</h1>
+    </div>
+  </ng-template>
+</div>
+
+
+<p>
+  <button (click)="login()">LOGIN</button>
+  <button (click)="logout()">LOGOUT</button>
+  user works!
+</p>
+
+{{ loggedIn | async}}
+
+<pre>
+  {{ (player | async) | json }}
+</pre>

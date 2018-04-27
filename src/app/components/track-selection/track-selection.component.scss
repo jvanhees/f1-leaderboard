@@ -1,0 +1,86 @@
+@import './../../../styles/theme.scss';
+
+$track-padding: 20px;
+
+.tracks {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+  background-color: mat-color($racing-app-primary);
+}
+
+.track {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  position: relative;
+  padding: 20px;
+  width: 25%;
+  height: 220px;
+  overflow: hidden;
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  color: #FFF;
+  cursor: pointer;
+
+  &:nth-child(4) {
+    border-right: none;
+  }
+
+  h2 {
+    font-weight: 300;
+    margin: 0;
+    font-family: Formula1;
+  }
+
+  h3 {
+    font-size: 14px;
+    font-weight: 300;
+    margin: 0;
+  }
+
+  .date {
+    color: mat-color($racing-app-accent);
+  }
+
+  .track-line {
+    position: absolute;
+    bottom: -30px;
+    left: 0;
+    right: 0;
+    padding: 0 $track-padding;
+  }
+
+  .upcoming-indicator {
+    position: absolute;
+    right: $track-padding;
+    top: $track-padding;
+    background-color: mat-color($racing-app-primary, 600);
+    color: mat-color($racing-app-primary);
+    font-weight: bold;
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 50px;
+  }
+
+  &:hover {
+    background-color: mat-color($racing-app-accent);
+
+    .date {
+      color: mat-color($racing-app-primary);
+    }
+
+    .upcoming-indicator {
+      background-color: mat-color($racing-app-accent, A100);
+      color: mat-color($racing-app-accent);
+    }
+  }
+}
+
+:host ::ng-deep .track-line svg {
+  width: 100%;
+  height: auto;
+}
