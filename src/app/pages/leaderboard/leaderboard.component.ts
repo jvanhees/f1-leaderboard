@@ -20,7 +20,7 @@ export class LeaderboardComponent implements OnInit {
   claimedTimings: Observable<Timing[]>;
   unclaimedTimings: Observable<Timing[]>;
   track: Observable<Track>;
-  unclaimedColumns = ['laptime', 'team', 'date', 'claim'];
+  unclaimedColumns = ['date', 'laptime', 'team', 'claim'];
 
   constructor(
     private route: ActivatedRoute,
