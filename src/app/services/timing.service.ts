@@ -14,7 +14,6 @@ import { PlayerService, IndexedPlayers } from './player.service';
 export class TimingService {
 
   private timingsCollection: AngularFirestoreCollection<Timing>;
-  private orderValue = 'laptime';
 
   constructor(
     private afs: AngularFirestore,
@@ -25,11 +24,31 @@ export class TimingService {
     this.timingsCollection = afs.collection<Timing>('timings');
   }
 
-  public getTimingsByTrack(trackId: string): Observable<Timing[]> {
+  public getTimingsByTrack(trackId: string, start = 0, end = 20): Observable<Timing[]> {
     const trackDoc = this.trackService.getTrackDoc(trackId);
     const timings = this.afs.collection<Timing>('timings', ref => ref
       .where('track', '==', trackDoc.ref)
-      .orderBy(this.orderValue)
+      .orderBy('laptime')
+    ).snapshotChanges().map(actions => {
+      return actions.map(a => {
+        const data = a.payload.doc.data() as Timing;
+        const id = a.payload.doc.id;
+        return { id, ...data };
+      });
+    });
+    return this.enrichTimings(timings);
+  }
+
+  public getUnclaimedByTrack(trackId: string, daysAgo: number = 3): Observable<Timing[]> {
+    let fromDate = new Date();
+    fromDate.setDate(fromDate.getDate() - daysAgo);
+
+    const trackDoc = this.trackService.getTrackDoc(trackId);
+    const timings = this.afs.collection<Timing>('timings', ref => ref
+      .where('track', '==', trackDoc.ref)
+      .where('playerId', '==', null)
+      .where('time', '>=', fromDate)
+      .orderBy('time')
     ).snapshotChanges().map(actions => {
       return actions.map(a => {
         const data = a.payload.doc.data() as Timing;

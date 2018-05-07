@@ -1,5 +1,7 @@
-import { Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef, ViewChild } from '@angular/core';
+import { MatPaginator, PageEvent } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
 
 import { TimingService } from './../../services/timing.service';
 import { UserService } from './../../services/user.service';
@@ -20,7 +22,19 @@ export class TimingsComponent implements OnInit {
   @Input('columns')
   public displayedColumns: string[] = ['position', 'teamcolor', 'name', 'laptime', 'gap', 'team', 'date'];
 
+  @Input('pageSize')
+  public pageSize: number = null;
+
+  @Input('length')
+  public length: number;
+
+  @Output('pagination')
+  public paginationEvent: EventEmitter<PageEvent> = new EventEmitter();
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
   gaps: number[];
+  isAuthenticated: Observable<boolean>;
 
   constructor(
     private userService: UserService,
@@ -28,7 +42,10 @@ export class TimingsComponent implements OnInit {
     private changeDetectorRefs: ChangeDetectorRef
   ) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.isAuthenticated = this.userService.isAuthenticated();
+    this.paginator.page;
+  }
 
   trackBy(index, item) {
     return item.id;
@@ -39,6 +56,12 @@ export class TimingsComponent implements OnInit {
       this.timingService.setPlayerOfTiming(timing, player).then(() => {
         this.changeDetectorRefs.detectChanges();
       });
+    });
+  }
+
+  public loginClaimTime(timing: Timing): void {
+    this.userService.login().then((credentials) => {
+      this.claimTime(timing);
     });
   }
 

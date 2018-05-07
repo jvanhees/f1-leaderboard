@@ -30,45 +30,52 @@ export class UserService {
 
   // Returns true if user is logged in
   public isAuthenticated(): Observable<boolean> {
-    return this.afAuth.authState.map(value => {
-      return (value !== null)
+    return this.afAuth.authState.map(authState => {
+      return (authState !== null)
     });
   }
 
   // Returns current user data
   public getPlayer(): Observable<Player> {
-    return this.afAuth.authState.switchMap((authState) => {
-      return this.playerService.getPlayer(authState.uid);
-    });
+    return this.afAuth.authState
+      .filter(authState => (authState !== null))
+      .switchMap((authState) => {
+        return this.playerService.getPlayer(authState.uid);
+      });
   }
 
   public getStateObservable() {
     return this.afAuth.authState;
   }
 
-  public login() {
+  public login(): Promise<any> {
     var provider = new firebase.auth.GoogleAuthProvider();
     provider.addScope('profile');
-    this.afAuth.auth.signInWithPopup(provider)
-      .then((credential) =>  {
-          this.authState = credential.user;
-          this.playerDoc = this.playerService.getPlayerDoc(this.authState.uid);
-          this.updateUserData()
-      })
-      .catch(error => console.log(error));;
+    return new Promise((resolve, reject) => {
+      this.afAuth.auth.signInWithPopup(provider)
+        .then((credential) =>  {
+            this.authState = credential.user;
+            this.playerDoc = this.playerService.getPlayerDoc(this.authState.uid);
+            this.updateUserData().then(val => resolve(), err => reject());
+        })
+        .catch(error => {
+          console.log(error);
+          reject(error);
+        });
+     });
   }
 
-  public logout() {
-    this.afAuth.auth.signOut();
+  public logout(): Promise<any> {
+    return this.afAuth.auth.signOut();
   }
 
-  private updateUserData(): void {
+  private updateUserData(): Promise<void> {
     let data: Player = {
       email: this.authState.email,
       name: this.authState.displayName,
       photo: this.authState.photoURL
     }
-    this.playerDoc.update(data);
+    return this.playerDoc.update(data);
   }
 
 }

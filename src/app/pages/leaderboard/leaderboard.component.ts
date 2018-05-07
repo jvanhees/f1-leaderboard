@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
+import { PageEvent } from '@angular/material';
 
 import { TrackService } from './../../services/track.service';
 import { TimingService } from './../../services/timing.service';
@@ -22,6 +23,8 @@ export class LeaderboardComponent implements OnInit {
   track: Observable<Track>;
   unclaimedColumns = ['date', 'laptime', 'team', 'claim'];
 
+  pageLength = 20;
+
   constructor(
     private route: ActivatedRoute,
     private timingService: TimingService,
@@ -30,33 +33,30 @@ export class LeaderboardComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.timings = this.route.paramMap
-      .switchMap((params: ParamMap) => {
-        return this.timingService.getTimingsByTrack(params.get('trackId'))
-      });
+    this.getTimings();
 
     this.track = this.route.paramMap
       .switchMap((params: ParamMap) => this.trackService.getTrack(Number(params.get('trackId'))));
+  }
 
-    this.claimedTimings = this.timings.map((timings: Timing[]) => {
-      let filtered: Timing[] = [];
-      for (let timing of timings) {
-        if (timing.playerId) {
-          filtered.push(timing);
-        }
-      }
-      return filtered;
-    });
+  public getTimings(start = 0, end = 20) {
+    this.timings = this.route.paramMap
+      .switchMap((params: ParamMap) => {
+        return this.timingService.getTimingsByTrack(params.get('trackId'), start, end)
+      });
+  }
 
-    this.unclaimedTimings = this.timings.map((timings: Timing[]) => {
-      let filtered: Timing[] = [];
-      for (let timing of timings) {
-        if (!timing.playerId) {
-          filtered.push(timing);
-        }
-      }
-      return filtered;
-    });
+  public getUnclaimed() {
+    this.unclaimedTimings = this.route.paramMap
+      .switchMap((params: ParamMap) => {
+        return this.timingService.getUnclaimedByTrack(params.get('trackId'))
+      });
+  }
+
+  public pageChange(page: PageEvent) {
+    const start = page.pageIndex;
+    const end = page.pageSize * (page.pageIndex + 1);
+    this.getTimings(start, end);
   }
 
 }

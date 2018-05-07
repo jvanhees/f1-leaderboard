@@ -16,6 +16,7 @@ export class UserComponent implements OnInit {
   public loggedIn: Observable<boolean>;
 
   constructor(
+    private router: Router,
     private route: ActivatedRoute,
     private userService: UserService
   ) { }
@@ -36,7 +37,9 @@ export class UserComponent implements OnInit {
   }
 
   public logout() {
-    this.userService.logout();
+    this.userService.logout().then(ret => {
+      this.router.navigate(['/']);
+    });
   }
 
 }

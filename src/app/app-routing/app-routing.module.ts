@@ -9,8 +9,9 @@ import { AuthGuard } from './../guards/auth.guard';
 
 const routes: Routes = [
   {
-    path: 'tracks',
-    component: TracksComponent,
+    path: '',
+    redirectTo: '/tracks',
+    pathMatch: 'full'
   },
   {
     path: 'track',
@@ -18,11 +19,15 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
+    path: 'tracks',
+    component: TracksComponent,
+  },
+  {
     path: 'track/:trackId',
     component: LeaderboardComponent,
   },
   {
-    path: 'user/:userId',
+    path: 'user',
     component: UserComponent,
     canActivate: [AuthGuard]
   }

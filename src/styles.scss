@@ -11,6 +11,22 @@ body, html {
   font-family: 'Lato', sans-serif;
 }
 
+* {
+  box-sizing: border-box;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+}
+
 .hero {
   height: auto;
   min-height: 100px;
@@ -22,6 +38,7 @@ body, html {
   background-size: cover;
   background-position: center center;
   color: #FFF;
+  margin-top: 56px;
 
   .center {
     position: relative;

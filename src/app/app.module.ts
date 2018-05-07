@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
@@ -6,6 +7,7 @@ import { HttpModule } from '@angular/http';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { MomentModule } from 'ngx-moment';
 
 import { ThemeModule } from './theme/theme.module';
@@ -16,6 +18,8 @@ import { TrackService } from './services/track.service';
 import { TimingService } from './services/timing.service';
 import { UserService } from './services/user.service';
 import { PlayerService } from './services/player.service';
+import { KioskService } from './services/kiosk.service';
+import { AuthGuard } from './guards/auth.guard';
 
 import { AppComponent } from './app.component';
 
@@ -29,6 +33,7 @@ import { environment } from '../environments/environment';
 import { LeaderboardComponent } from './pages/leaderboard/leaderboard.component';
 import { TracksComponent } from './pages/tracks/tracks.component';
 import { UserComponent } from './pages/user/user.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -39,10 +44,12 @@ import { UserComponent } from './pages/user/user.component';
     TrackSelectionComponent,
     TracksComponent,
     UserComponent,
-    TimingsComponent
+    TimingsComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     HttpClientModule,
     HttpModule,
     ThemeModule,
@@ -50,6 +57,7 @@ import { UserComponent } from './pages/user/user.component';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,
+    AngularFireDatabaseModule,
     MomentModule
   ],
   providers: [
@@ -57,7 +65,9 @@ import { UserComponent } from './pages/user/user.component';
     TrackService,
     TimingService,
     UserService,
-    PlayerService
+    PlayerService,
+    KioskService,
+    AuthGuard
   ],
   bootstrap: [ AppComponent ],
 })

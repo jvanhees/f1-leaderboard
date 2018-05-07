@@ -1,0 +1,59 @@
+@import './../../../styles/theme.scss';
+
+.navbar {
+  padding: 8px 16px;
+  display: flex;
+  background-color: mat-color($racing-app-accent);
+  color: #FFF;
+  flex-wrap: wrap;
+  align-items: center;
+  min-height: 56px;
+  font-size: 14px;
+
+  > * {
+    margin-right: 15px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}
+
+.flex-spacer {
+  flex-grow: 1;
+}
+
+.app-icon svg {
+  height: 24px;
+  margin-right: 2px;
+  fill: #FFF;
+  vertical-align: middle;
+}
+
+.app-icon {
+  font-family: Formula1;
+}
+
+.client-selector-container {
+  position: relative;
+
+  .client-selector {
+    position: absolute;
+    top: 40px;
+    right: 0;
+    padding: 0;
+    width: 240px;
+
+    a {
+      width: 100%;
+    }
+  }
+
+  .client-list {
+    padding: 0;
+  }
+
+  .active {
+    color: mat-color($racing-app-accent);
+  }
+}
