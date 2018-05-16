@@ -1,0 +1,25 @@
+<span *ngIf="!(isKiosk | async); else kioskActive">
+  <button
+    mat-raised-button
+    color="accent"
+    *ngIf="isAuthenticated | async"
+    (click)="claimTime()">
+    CLAIM
+  </button>
+  <button
+    mat-raised-button
+    color="accent"
+    *ngIf="!(isAuthenticated | async)"
+    (click)="loginClaimTime()"
+  >
+    LOGIN TO CLAIM
+  </button>
+</span>
+
+<ng-template #kioskActive>
+  <button
+    mat-raised-button
+    color="accent"
+    (click)="kioskClaimTime()"
+  >CLAIM</button>
+</ng-template>

@@ -1,0 +1,89 @@
+<div class="hero">
+  <div class="center narrow">
+    <h1>Claim a time</h1>
+  </div>
+</div>
+
+<div class="content">
+  <div class="claim center wrapper narrow mat-elevation-z8">
+
+    <div class="claim-time-container" *ngIf="(timing | async) as timing; let timing; else loadingTiming">
+      <mat-list class="labeled-list">
+
+        <mat-list-item>
+          <label>Car</label>
+          <span>{{ timing.car.name }}</span>
+        </mat-list-item>
+
+        <mat-list-item>
+          <label>Track</label>
+          <span>{{ timing.track.name }} ({{ timing.track.track }})</span>
+        </mat-list-item>
+
+        <mat-list-item>
+          <label>Date</label>
+          <span>{{ timing.time | amTimeAgo }}</span>
+        </mat-list-item>
+
+        <mat-divider></mat-divider>
+
+        <mat-list-item>
+          <label>Laptime</label>
+          <span>
+            {{ timing.laptime | laptime }}
+            <mat-chip-list class="inline"><mat-chip color="accent" selected="true" [hidden]="!timing.invalid">Invalid</mat-chip></mat-chip-list>
+          </span>
+        </mat-list-item>
+
+        <mat-list-item>
+          <label>Sector 1</label>
+          <span>{{ timing.sector1 | sector }}</span>
+        </mat-list-item>
+
+        <mat-list-item>
+          <label>Sector 2</label>
+          <span>{{ timing.sector2 | sector }}</span>
+        </mat-list-item>
+
+        <mat-list-item>
+          <label>Sector 3</label>
+          <span>{{ timing.sector3 | sector }}</span>
+        </mat-list-item>
+
+        <mat-divider></mat-divider>
+
+        <mat-list-item>
+          <label>Traction Control</label>
+          <span>
+            <mat-checkbox
+              [checked]="(timing.traction_control === 1)"
+              [indeterminate]="(timing.traction_control === 0.5)"
+              disabled="true"
+            ></mat-checkbox>
+          </span>
+        </mat-list-item>
+
+        <mat-list-item>
+          <label>Anti-lock brakes</label>
+          <span>
+            <mat-checkbox [checked]="timing.anti_lock_brakes" disabled="true"></mat-checkbox>
+          </span>
+        </mat-list-item>
+
+      </mat-list>
+
+      <div class="claim-button-container">
+        <claim-time [timing]="timing"></claim-time>
+      </div>
+    </div>
+
+    <ng-template class="claim-time-container" #loadingTiming>
+      <div class="spinner-container" *ngIf="exists">
+        <mat-spinner></mat-spinner>
+      </div>
+      <span class="loading-indicator" *ngIf="!exists">
+        Time doesn't exist
+      </span>
+    </ng-template>
+  </div>
+</div>

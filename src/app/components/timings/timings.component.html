@@ -19,8 +19,7 @@
       {{ time.player?.name }}
       <span *ngIf="!time.player">
         <em>Unclaimed time</em>
-        <button *ngIf="isAuthenticated | async" mat-raised-button color="white" (click)="claimTime(time)">CLAIM</button>
-        <button *ngIf="!(isAuthenticated | async)" mat-raised-button color="white" (click)="loginClaimTime(time)">LOGIN TO CLAIM</button>
+        <claim-time [timing]="time"></claim-time>
       </span>
     </mat-cell>
   </ng-container>
@@ -53,8 +52,7 @@
   <ng-container matColumnDef="claim">
     <mat-header-cell *matHeaderCellDef> Claim </mat-header-cell>
     <mat-cell *matCellDef="let time">
-      <button *ngIf="isAuthenticated | async" mat-raised-button color="primary" (click)="claimTime(time)">CLAIM</button>
-      <button *ngIf="!(isAuthenticated | async)" mat-raised-button color="primary" (click)="loginClaimTime(time)">LOGIN TO CLAIM</button>
+      <claim-time [timing]="time"></claim-time>
     </mat-cell>
   </ng-container>
 

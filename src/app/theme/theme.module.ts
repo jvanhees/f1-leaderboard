@@ -7,7 +7,9 @@ import {
   MatTooltipModule,
   MatListModule,
   MatCardModule,
-  MatPaginatorModule
+  MatPaginatorModule,
+  MatChipsModule,
+  MatProgressSpinnerModule
 } from '@angular/material';
 
 @NgModule({
@@ -19,7 +21,9 @@ import {
     MatTooltipModule,
     MatListModule,
     MatCardModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatChipsModule,
+    MatProgressSpinnerModule
   ],
   exports: [
     MatButtonModule,
@@ -29,7 +33,9 @@ import {
     MatTooltipModule,
     MatListModule,
     MatCardModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatChipsModule,
+    MatProgressSpinnerModule
   ],
 })
 export class ThemeModule { }

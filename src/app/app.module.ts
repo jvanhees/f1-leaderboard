@@ -34,6 +34,9 @@ import { LeaderboardComponent } from './pages/leaderboard/leaderboard.component'
 import { TracksComponent } from './pages/tracks/tracks.component';
 import { UserComponent } from './pages/user/user.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { ClaimComponent } from './pages/claim/claim.component';
+import { SectorPipe } from './pipes/sector.pipe';
+import { ClaimTimeComponent } from './components/claim-time/claim-time.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +48,10 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     TracksComponent,
     UserComponent,
     TimingsComponent,
-    NavbarComponent
+    NavbarComponent,
+    ClaimComponent,
+    SectorPipe,
+    ClaimTimeComponent
   ],
   imports: [
     BrowserModule,

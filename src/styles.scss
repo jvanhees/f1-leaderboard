@@ -79,4 +79,44 @@ h1 {
 .center {
   width: 100%;
   max-width: 960px;
+
+  &.narrow {
+    max-width: 600px;
+  }
+}
+
+.labeled-list {
+  .mat-list-item {
+    display: flex;
+    flex-direction: row;
+  }
+
+  label {
+    font-weight: bold;
+    width: 25%;
+    flex-shrink: 0;
+  }
+
+  span {
+    flex-grow: 1;
+  }
+}
+
+.inline .mat-chip-list-wrapper {
+  display: inline;
+}
+
+.spinner-container {
+  margin: 40px 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.loading-indicator {
+  display: block;
+  margin: 40px auto;
+  font-style: italic;
+  color: mat-color($racing-app-primary);
+  text-align: center;
 }

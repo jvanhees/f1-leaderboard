@@ -29,13 +29,7 @@ export class TimingService {
     const timings = this.afs.collection<Timing>('timings', ref => ref
       .where('track', '==', trackDoc.ref)
       .orderBy('laptime')
-    ).snapshotChanges().map(actions => {
-      return actions.map(a => {
-        const data = a.payload.doc.data() as Timing;
-        const id = a.payload.doc.id;
-        return { id, ...data };
-      });
-    });
+    ).snapshotChanges().map(this.mapTimingSnapshot);
     return this.enrichTimings(timings);
   }
 
@@ -49,13 +43,7 @@ export class TimingService {
       .where('playerId', '==', null)
       .where('time', '>=', fromDate)
       .orderBy('time')
-    ).snapshotChanges().map(actions => {
-      return actions.map(a => {
-        const data = a.payload.doc.data() as Timing;
-        const id = a.payload.doc.id;
-        return { id, ...data };
-      });
-    });
+    ).snapshotChanges().map(this.mapTimingSnapshot);
     return this.enrichTimings(timings);
   }
 
@@ -88,8 +76,23 @@ export class TimingService {
   }
 
   public setPlayerOfTiming(timing: Timing, player: Player): Promise<void> {
-    let timingDoc = this.getTimingDoc(timing.id);
+    const timingDoc = this.getTimingDoc(timing.id);
     return timingDoc.update({ playerId: player.id });
+  }
+
+  public getTimingByReadableId(timingId: string): Observable<Timing[]> {
+    const timings = this.afs.collection<Timing>('timings', ref => ref
+      .where('id', '==', timingId)
+    ).snapshotChanges().map(this.mapTimingSnapshot);
+    return this.enrichTimings(timings);
+  }
+
+  private mapTimingSnapshot(actions: DocumentChangeAction[]): Timing[] {
+    return actions.map(a => {
+      const data = a.payload.doc.data() as Timing;
+      const id = a.payload.doc.id;
+      return { id, ...data };
+    });
   }
 
 }
